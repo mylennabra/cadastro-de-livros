@@ -19,7 +19,7 @@ public class Main extends JFrame implements ActionListener{
         setVisible(true); // Torna o frame visivel
         setTitle("Livraria dos Sonhos v0.1"); // Definindo título pra janela 
         this.getContentPane().setBackground(Color.white);
-        //this.setLayout(null);
+        this.setLayout(null);
         setLocationRelativeTo(null);
         //setResizable(false);
         Container p = getContentPane();
@@ -43,11 +43,8 @@ public class Main extends JFrame implements ActionListener{
         tfAnoDePub = new JTextField(4);
         cbAnodePub = cb;
         
-        // int largura = getContentPane().getSize().width;
-        // int altura = getContentPane().getSize().height;
-		
         final DefaultTableModel modelo = new 
-           DefaultTableModel();
+        DefaultTableModel();
         
         // construindo a tabela
         JTable tabela = new JTable(modelo);
@@ -59,29 +56,32 @@ public class Main extends JFrame implements ActionListener{
         
         bConcluir.addActionListener(
           new ActionListener(){
-              public void actionPerformed(ActionEvent e){
-                String nome = tfNomeDoLivro.getText();
-                String idade = tfAutor.getText();
-                String ano = (String) cbAnodePub.getSelectedItem();
-                
-                // Adiciona uma linha
+            public void actionPerformed(ActionEvent e){
+              String nome = tfNomeDoLivro.getText();
+              String idade = tfAutor.getText();
+              String ano = (String) cbAnodePub.getSelectedItem();
+              
+              // Adiciona uma linha
               modelo.addRow(new Object[]{nome, idade, ano});
             }
           }	
         ); 
-        
-        tabela.setPreferredScrollableViewportSize(new Dimension(350, 50));   
+          
+        //tabela.setPreferredScrollableViewportSize(new Dimension(350, 50));   
         JScrollPane scrollPane = new JScrollPane(tabela);
         
-        // lNomeDoLivro.setBounds(largura - 450, altura - 450, 100, 30);
-        // tfNomeDoLivro.setBounds(largura - 450, altura - 420, 420, 30);
-        // lAutor.setBounds(largura - 450, altura - 390, 100, 30);
-        // tfAutor.setBounds(largura - 450, altura - 360, 420, 30);
-        // lAnodePub.setBounds(largura - 450, altura - 330, 200, 30);
-        // cbAnodePub.setBounds(largura - 450, altura - 300, 60, 20);
-        // bConcluir.setBounds(largura - 110, altura - 40, 100, 30);
-        // bSair.setBounds(largura - 212, altura - 40, 100, 30);
-        // tabela.setBounds(largura - 450, altura - 200, 60, 20);
+        int largura = getContentPane().getSize().width;
+        int altura = getContentPane().getSize().height;
+    
+        lNomeDoLivro.setBounds(largura - 450, altura - 450, 100, 25);
+        tfNomeDoLivro.setBounds(largura - 450, altura - 420, 420, 25);
+        lAutor.setBounds(largura - 450, altura - 390, 100, 25);
+        tfAutor.setBounds(largura - 450, altura - 360, 280, 25);
+        lAnodePub.setBounds(largura - 150, altura - 390, 150, 25);
+        cbAnodePub.setBounds(largura - 150, altura - 360, 120, 25);
+        bConcluir.setBounds(largura - 110, altura - 40, 100, 25);
+        bSair.setBounds(largura - 212, altura - 40, 100, 25);
+        scrollPane.setBounds(largura - 450, altura - 260, 420, 200);
 
         p.add(lNomeDoLivro);
         p.add(tfNomeDoLivro);
@@ -89,10 +89,10 @@ public class Main extends JFrame implements ActionListener{
         p.add(tfAutor);
         p.add(lAnodePub);
         p.add(cbAnodePub);
-        p.add(scrollPane);
         p.add(lConcluir);
         p.add(bConcluir);
         p.add(bSair);
+        p.add(scrollPane);
     }
 
 
