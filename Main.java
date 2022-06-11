@@ -9,9 +9,11 @@ public class Main extends JFrame implements ActionListener{
     
     JComboBox cbAnodePub, cbEditora;
     JButton bConcluir, bSair, bLimpar, bSobre, bDelet;
-    JLabel lTitle, lNomeDoLivro, lAutor, lAnodePub, lEditora, lEstado, lConcluir;
-    JTextField tfNomeDoLivro, tfAutor, tfAnoDePub;
+    JLabel lTitle, lNomeDoLivro, lAutor, lAnodePub, lEditora, lEstado, lConcluir, lCodigo;
+    JTextField tfNomeDoLivro, tfAutor, tfAnoDePub, tfCodigo;
     JRadioButton rbNovo, rbSemi;
+
+    ButtonGroup E = new ButtonGroup();
 
     // Criando barra
     JMenuBar mbmenuBar = new JMenuBar();
@@ -37,11 +39,12 @@ public class Main extends JFrame implements ActionListener{
         setSize(1000,500); // Define tamanho do frame
         setVisible(true); // Torna o frame visivel
         setTitle("Livraria dos Sonhos v0.1"); // Definindo título pra janela 
-        this.getContentPane().setBackground(Color.white);
+        this.getContentPane().setBackground(Color.WHITE);
         this.setLayout(null);
         setLocationRelativeTo(null);
-        //setResizable(false);
+        setResizable(false);
         Container p = getContentPane();
+
 
 
         String[] years = { "", "1990", "1991", "1992", "1993", "1994", "1995", "1996", "1997", "1998", "1999", "2000", "2001", "2002", };
@@ -72,8 +75,6 @@ public class Main extends JFrame implements ActionListener{
             
         
         
-        //cb.setEditable (true);
-        
         lTitle = new JLabel("--------------------------------------------------------- CADASTRO DE LIVROS ---------------------------------------------------------");
         lTitle.setFont(fonte);
         lNomeDoLivro = new JLabel("Nome do Livro: ");
@@ -81,15 +82,16 @@ public class Main extends JFrame implements ActionListener{
         lConcluir = new JLabel("Pronto? ");
         lAnodePub = new JLabel("Ano de Publicacao: ");
         lEditora = new JLabel("Editora: ");
+        lCodigo = new JLabel("Codigo: ");
         lEstado = new JLabel("Estado do livro: ");
-        bConcluir = new JButton("Submit");
+        bConcluir = new JButton("Salvar");
         bSair = new JButton("Sair");
         bLimpar = new JButton("Limpar");
         bSobre = new JButton("Sobre");
         bDelet = new JButton("Excluir Linha");
         tfNomeDoLivro = new JTextField(40);
-        tfAutor = new JTextField(30);
-        tfAnoDePub = new JTextField(4);
+        tfAutor = new JTextField(4);
+        tfCodigo = new JTextField(4);
         cbAnodePub = cby;
         cbEditora = cbe;
         rbNovo = new JRadioButton("Novo", false);
@@ -103,7 +105,7 @@ public class Main extends JFrame implements ActionListener{
         miSobre.addActionListener(this);
         miLimpar.addActionListener(this);
 
-        ButtonGroup E = new ButtonGroup();
+        
                     E.add(rbNovo);
                     E.add(rbSemi);
 
@@ -114,6 +116,7 @@ public class Main extends JFrame implements ActionListener{
 
         
         // Criando colunas
+        modelo.addColumn("Cod");
         modelo.addColumn("Nome");
         modelo.addColumn("Autor");
         modelo.addColumn("Editora");
@@ -135,20 +138,24 @@ public class Main extends JFrame implements ActionListener{
         lEstado.setBounds(largura - 950, altura - 280, 121, 25);
         rbNovo.setBounds(largura - 950, altura - 250, 131, 25);
         rbSemi.setBounds(largura - 800, altura - 250, 131, 25);
+        lCodigo.setBounds(largura - 650, altura - 280, 151, 25);
+        tfCodigo.setBounds(largura - 650, altura - 250, 121, 25);
         lAnodePub.setBounds(largura - 650, altura - 340, 151, 25);
         cbAnodePub.setBounds(largura - 650, altura - 310, 121, 25);
-        bConcluir.setBounds(largura - 630, altura - 80, 100, 25);
-        bSair.setBounds(largura - 736, altura - 80, 100, 25);
-        bLimpar.setBounds(largura - 843, altura - 80, 100, 25);
+        bConcluir.setBounds(largura - 950, altura - 200, 420, 25);
+        bSair.setBounds(largura - 950, altura - 160, 205, 25);
+        bLimpar.setBounds(largura - 735, altura - 160, 205, 25);
         bSobre.setBounds(largura - 950, altura - 80, 100, 25);
         bDelet.setBounds(largura - 450, altura - 80, 421, 25);
         scrollPane.setBounds(largura - 450, altura - 400, 421, 300);
         
-        p.add(lTitle);
+        add(lTitle);
         p.add(lNomeDoLivro);
         p.add(tfNomeDoLivro);
         p.add(lAutor);
         p.add(tfAutor);
+        p.add(lCodigo);
+        p.add(tfCodigo);
         p.add(lAnodePub);
         p.add(cbAnodePub);
         p.add(lEditora);
@@ -164,7 +171,19 @@ public class Main extends JFrame implements ActionListener{
         p.add(bSobre);
         p.add(scrollPane);
         p.revalidate();
+    }
 
+    private Color Color(int i, int j, int k) {
+      return null;
+    }
+
+    public void Erase(){
+      tfNomeDoLivro.setText(""); // Para limpar a caixa de texto
+      tfAutor.setText("");
+      tfCodigo.setText("");
+      cbEditora.setSelectedIndex(0);
+      cbAnodePub.setSelectedIndex(0);
+      E.clearSelection();
     }
 
 
@@ -184,19 +203,20 @@ public class Main extends JFrame implements ActionListener{
             //new Sobre();
         }
         if (ae.getSource() == bLimpar || ae.getSource() == miLimpar) {
-          tfNomeDoLivro.setText(""); // Para limpar a caixa de texto
-          tfAutor.setText("");
+          Erase();
         }
         if(ae.getSource()==bConcluir){
           if(tfNomeDoLivro.getText().length() > 0 && tfAutor.getText().length() > 0 && cbEditora.getSelectedItem() != "" && cbAnodePub.getSelectedItem() != "" && (rbNovo.isSelected() == true || rbSemi.isSelected() == true)){
+              String cod = tfCodigo.getText();
               String nome = tfNomeDoLivro.getText();
               String autor = tfAutor.getText();
               String editora = (String) cbEditora.getSelectedItem();
               String ano = (String) cbAnodePub.getSelectedItem();
               String estado = rbNovo.isSelected() ? rbNovo.getText() : rbSemi.getText();
+              Erase();
               
               // Adiciona uma linha
-              modelo.addRow(new Object[]{nome, autor, editora, ano, estado});
+              modelo.addRow(new Object[]{cod, nome, autor, editora, ano, estado});
           }else{
               JOptionPane.showMessageDialog(null, "Preencha todos os campos", "Warning", JOptionPane.INFORMATION_MESSAGE);
           }
@@ -205,8 +225,8 @@ public class Main extends JFrame implements ActionListener{
             int a = JOptionPane.showConfirmDialog(null, "Deseja excluir o registro desse livro?", "Confirmacao", JOptionPane.YES_NO_OPTION);
             if(a==0){
                 if (tabela.getSelectedRow() >= 0){
-                  modelo.removeRow(tabela.getSelectedRow());
-                  tabela.setModel(modelo);
+                    modelo.removeRow(tabela.getSelectedRow());
+                    tabela.setModel(modelo);
                 }else{
                     JOptionPane.showMessageDialog(null, "Favor selecionar uma linha");
                 }
