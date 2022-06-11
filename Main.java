@@ -16,7 +16,6 @@ public class Main extends JFrame implements ActionListener{
     Font fonte = new Font("Segoe UI", Font.CENTER_BASELINE, 16);
 
     public Main(){
-        //JPanel p = new JPanel();
         setLayout(new FlowLayout()); // Organiza layout 
         setSize(1000,500); // Define tamanho do frame
         setVisible(true); // Torna o frame visivel
@@ -90,8 +89,7 @@ public class Main extends JFrame implements ActionListener{
 
         
         
-        final DefaultTableModel modelo = new 
-        DefaultTableModel();
+        final DefaultTableModel modelo = new DefaultTableModel();
         
         // construindo a tabela
         JTable tabela = new JTable(modelo);
@@ -135,12 +133,12 @@ public class Main extends JFrame implements ActionListener{
         rbSemi.setBounds(largura - 800, altura - 250, 131, 25);
         lAnodePub.setBounds(largura - 650, altura - 340, 151, 25);
         cbAnodePub.setBounds(largura - 650, altura - 310, 121, 25);
-        bConcluir.setBounds(largura - 630, altura - 60, 100, 25);
-        bSair.setBounds(largura - 736, altura - 60, 100, 25);
-        bLimpar.setBounds(largura - 843, altura - 60, 100, 25);
-        bSobre.setBounds(largura - 950, altura - 60, 100, 25);
+        bConcluir.setBounds(largura - 630, altura - 80, 100, 25);
+        bSair.setBounds(largura - 736, altura - 80, 100, 25);
+        bLimpar.setBounds(largura - 843, altura - 80, 100, 25);
+        bSobre.setBounds(largura - 950, altura - 80, 100, 25);
         scrollPane.setBounds(largura - 450, altura - 400, 421, 300);
-
+        
         p.add(lTitle);
         p.add(lNomeDoLivro);
         p.add(tfNomeDoLivro);
@@ -159,6 +157,8 @@ public class Main extends JFrame implements ActionListener{
         p.add(bLimpar);
         p.add(bSobre);
         p.add(scrollPane);
+        p.revalidate();
+
     }
 
 
@@ -177,12 +177,8 @@ public class Main extends JFrame implements ActionListener{
         if (ae.getSource() == bLimpar) {
           tfNomeDoLivro.setText(""); // Para limpar a caixa de texto
           tfAutor.setText("");
-          //cbAnodePub.setText("");
-          
-          
-      }
+        }
         
-        // TODO Adicionar depois
         
     }
 }
