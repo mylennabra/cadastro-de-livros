@@ -8,7 +8,7 @@ import javax.swing.table.DefaultTableModel;
 public class Main extends JFrame implements ActionListener{
     
     JComboBox cbAnodePub, cbEditora;
-    JButton bConcluir, bSair, bLimpar, bSobre;
+    JButton bConcluir, bSair, bLimpar, bSobre, bDelet;
     JLabel lTitle, lNomeDoLivro, lAutor, lAnodePub, lEditora, lEstado, lConcluir;
     JTextField tfNomeDoLivro, tfAutor, tfAnoDePub;
     JRadioButton rbNovo, rbSemi;
@@ -26,6 +26,9 @@ public class Main extends JFrame implements ActionListener{
     JMenuItem miLimpar = new JMenuItem("Limpar campos");
 
     final DefaultTableModel modelo = new DefaultTableModel();
+
+        // construindo a tabela
+        JTable tabela = new JTable(modelo);
 
     Font fonte = new Font("Segoe UI", Font.CENTER_BASELINE, 16);
 
@@ -83,6 +86,7 @@ public class Main extends JFrame implements ActionListener{
         bSair = new JButton("Sair");
         bLimpar = new JButton("Limpar");
         bSobre = new JButton("Sobre");
+        bDelet = new JButton("Excluir Linha");
         tfNomeDoLivro = new JTextField(40);
         tfAutor = new JTextField(30);
         tfAnoDePub = new JTextField(4);
@@ -94,6 +98,7 @@ public class Main extends JFrame implements ActionListener{
         bConcluir.addActionListener(this);
         bSair.addActionListener(this);
         bLimpar.addActionListener(this);
+        bDelet.addActionListener(this);
         bSobre.addActionListener(this);
         miSobre.addActionListener(this);
         miLimpar.addActionListener(this);
@@ -106,8 +111,7 @@ public class Main extends JFrame implements ActionListener{
         
         
         
-        // construindo a tabela
-        JTable tabela = new JTable(modelo);
+
         
         // Criando colunas
         modelo.addColumn("Nome");
@@ -137,6 +141,7 @@ public class Main extends JFrame implements ActionListener{
         bSair.setBounds(largura - 736, altura - 80, 100, 25);
         bLimpar.setBounds(largura - 843, altura - 80, 100, 25);
         bSobre.setBounds(largura - 950, altura - 80, 100, 25);
+        bDelet.setBounds(largura - 450, altura - 80, 421, 25);
         scrollPane.setBounds(largura - 450, altura - 400, 421, 300);
         
         p.add(lTitle);
@@ -154,6 +159,7 @@ public class Main extends JFrame implements ActionListener{
         p.add(lConcluir);
         p.add(bConcluir);
         p.add(bSair);
+        p.add(bDelet);
         p.add(bLimpar);
         p.add(bSobre);
         p.add(scrollPane);
@@ -194,9 +200,18 @@ public class Main extends JFrame implements ActionListener{
           }else{
               JOptionPane.showMessageDialog(null, "Preencha todos os campos", "Warning", JOptionPane.INFORMATION_MESSAGE);
           }
-      }
-        
-        
+        }
+        if (ae.getSource()==bDelet){
+            int a = JOptionPane.showConfirmDialog(null, "Deseja excluir o registro desse livro?", "Confirmacao", JOptionPane.YES_NO_OPTION);
+            if(a==0){
+                if (tabela.getSelectedRow() >= 0){
+                  modelo.removeRow(tabela.getSelectedRow());
+                  tabela.setModel(modelo);
+                }else{
+                    JOptionPane.showMessageDialog(null, "Favor selecionar uma linha");
+                }
+            }
+        }
     }
 }
     
