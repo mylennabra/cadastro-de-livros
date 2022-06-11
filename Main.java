@@ -13,6 +13,20 @@ public class Main extends JFrame implements ActionListener{
     JTextField tfNomeDoLivro, tfAutor, tfAnoDePub;
     JRadioButton rbNovo, rbSemi;
 
+    // Criando barra
+    JMenuBar mbmenuBar = new JMenuBar();
+    // Adicionando itens
+    JMenu mArquivoMenu = new JMenu("Info");
+    JMenu mSobreMenu = new JMenu("Mais");
+    JMenuItem miName = new JMenuItem("Matheus");
+    JMenuItem miName2 = new JMenuItem("Faymer");
+    JMenuItem miName3 = new JMenuItem("Mylenna");
+    JMenuItem miVersion = new JMenuItem("V 1.0 - 2022");
+    JMenuItem miSobre = new JMenuItem("Clique para saber mais");
+    JMenuItem miLimpar = new JMenuItem("Limpar campos");
+
+    final DefaultTableModel modelo = new DefaultTableModel();
+
     Font fonte = new Font("Segoe UI", Font.CENTER_BASELINE, 16);
 
     public Main(){
@@ -37,15 +51,7 @@ public class Main extends JFrame implements ActionListener{
         cbe.setMaximumRowCount (6);
         cbe.setEditable(true);
 
-        // Criando barra
-        JMenuBar mbmenuBar = new JMenuBar();
-        // Adicionando itens
-        JMenu mArquivoMenu = new JMenu("Info");
-        JMenu mSobreMenu = new JMenu("Mais");
-        JMenuItem miName = new JMenuItem("Mylenna");
-        JMenuItem miVersion = new JMenuItem("V 1.0 - 2022");
-        JMenuItem miSobre = new JMenuItem("Clique para saber mais");
-        JMenuItem miLimpar = new JMenuItem("Limpar campos");
+
         
         // Adicionando itens ao frame
         setJMenuBar(mbmenuBar);
@@ -54,6 +60,8 @@ public class Main extends JFrame implements ActionListener{
         
         // Adicionando subitens aos itens da bar
         mArquivoMenu.add(miName);
+        mArquivoMenu.add(miName2);
+        mArquivoMenu.add(miName3);
         mArquivoMenu.addSeparator();
         mArquivoMenu.add(miVersion);
         mSobreMenu.add(miSobre);
@@ -83,13 +91,20 @@ public class Main extends JFrame implements ActionListener{
         rbNovo = new JRadioButton("Novo", false);
         rbSemi = new JRadioButton("Seminovo", false);
 
+        bConcluir.addActionListener(this);
+        bSair.addActionListener(this);
+        bLimpar.addActionListener(this);
+        bSobre.addActionListener(this);
+        miSobre.addActionListener(this);
+        miLimpar.addActionListener(this);
+
         ButtonGroup E = new ButtonGroup();
                     E.add(rbNovo);
                     E.add(rbSemi);
 
         
         
-        final DefaultTableModel modelo = new DefaultTableModel();
+        
         
         // construindo a tabela
         JTable tabela = new JTable(modelo);
@@ -100,21 +115,6 @@ public class Main extends JFrame implements ActionListener{
         modelo.addColumn("Editora");
         modelo.addColumn("Ano");
         modelo.addColumn("Estado");
-
-        bConcluir.addActionListener(
-          new ActionListener(){
-            public void actionPerformed(ActionEvent e){
-              String nome = tfNomeDoLivro.getText();
-              String autor = tfAutor.getText();
-              String editora = (String) cbEditora.getSelectedItem();
-              String ano = (String) cbAnodePub.getSelectedItem();
-              String estado = rbNovo.isSelected() ? rbNovo.getText() : rbSemi.getText();
-              
-              // Adiciona uma linha
-              modelo.addRow(new Object[]{nome, autor, editora, ano, estado});
-            }
-          }	
-        ); 
           
         JScrollPane scrollPane = new JScrollPane(tabela);
         
@@ -174,10 +174,27 @@ public class Main extends JFrame implements ActionListener{
         if(ae.getSource()==bSair){ 
             System.exit(0);
         }
-        if (ae.getSource() == bLimpar) {
+        if(ae.getSource()==bSobre || ae.getSource() == miSobre){ 
+            //new Sobre();
+        }
+        if (ae.getSource() == bLimpar || ae.getSource() == miLimpar) {
           tfNomeDoLivro.setText(""); // Para limpar a caixa de texto
           tfAutor.setText("");
         }
+        if(ae.getSource()==bConcluir){
+          if(tfNomeDoLivro.getText().length() > 0 && tfAutor.getText().length() > 0 && cbEditora.getSelectedItem() != "" && cbAnodePub.getSelectedItem() != "" && (rbNovo.isSelected() == true || rbSemi.isSelected() == true)){
+              String nome = tfNomeDoLivro.getText();
+              String autor = tfAutor.getText();
+              String editora = (String) cbEditora.getSelectedItem();
+              String ano = (String) cbAnodePub.getSelectedItem();
+              String estado = rbNovo.isSelected() ? rbNovo.getText() : rbSemi.getText();
+              
+              // Adiciona uma linha
+              modelo.addRow(new Object[]{nome, autor, editora, ano, estado});
+          }else{
+              JOptionPane.showMessageDialog(null, "Preencha todos os campos", "Warning", JOptionPane.INFORMATION_MESSAGE);
+          }
+      }
         
         
     }
