@@ -9,7 +9,7 @@ public class Main extends JFrame implements ActionListener{
     
     // Declarando variáveis de escolo global
     JComboBox cbAnodePub, cbEditora;
-    JButton bConcluir, bSair, bLimpar, bSobre, bDelet;
+    JButton bConcluir, bSair, bLimpar, bDelet;
     JLabel lTitle, lNomeDoLivro, lAutor, lAnodePub, lEditora, lEstado, lConcluir, lCodigo;
     JTextField tfNomeDoLivro, tfAutor, tfAnoDePub, tfCodigo;
     JRadioButton rbNovo, rbSemi;
@@ -91,7 +91,6 @@ public class Main extends JFrame implements ActionListener{
         bConcluir = new JButton("Salvar");
         bSair = new JButton("Sair");
         bLimpar = new JButton("Limpar");
-        bSobre = new JButton("Sobre");
         bDelet = new JButton("Excluir Linha");
 
         // Criando campos de texto
@@ -115,7 +114,6 @@ public class Main extends JFrame implements ActionListener{
         bSair.addActionListener(this);
         bLimpar.addActionListener(this);
         bDelet.addActionListener(this);
-        bSobre.addActionListener(this);
         miSobre.addActionListener(this);
         miLimpar.addActionListener(this);
 
@@ -136,19 +134,18 @@ public class Main extends JFrame implements ActionListener{
         tfNomeDoLivro.setBounds(largura - 950, altura - 370, 281, 25);
         lEditora.setBounds(largura - 650, altura - 400, 121, 25);
         cbEditora.setBounds(largura - 650, altura - 370, 121, 25);
-        lAutor.setBounds(largura - 950, altura - 340, 101, 25);
-        tfAutor.setBounds(largura - 950, altura - 310, 281, 25);
-        lEstado.setBounds(largura - 950, altura - 280, 121, 25);
-        rbNovo.setBounds(largura - 950, altura - 250, 131, 25);
-        rbSemi.setBounds(largura - 800, altura - 250, 131, 25);
-        lCodigo.setBounds(largura - 650, altura - 280, 151, 25);
-        tfCodigo.setBounds(largura - 650, altura - 250, 121, 25);
-        lAnodePub.setBounds(largura - 650, altura - 340, 151, 25);
-        cbAnodePub.setBounds(largura - 650, altura - 310, 121, 25);
-        bConcluir.setBounds(largura - 950, altura - 200, 420, 25);
-        bSair.setBounds(largura - 950, altura - 160, 205, 25);
-        bLimpar.setBounds(largura - 735, altura - 160, 205, 25);
-        bSobre.setBounds(largura - 950, altura - 80, 100, 25);
+        lAutor.setBounds(largura - 950, altura - 310, 101, 25);
+        tfAutor.setBounds(largura - 950, altura - 280, 281, 25);
+        lEstado.setBounds(largura - 950, altura - 220, 121, 25);
+        rbNovo.setBounds(largura - 950, altura - 190, 131, 25);
+        rbSemi.setBounds(largura - 800, altura - 190, 131, 25);
+        lCodigo.setBounds(largura - 650, altura - 220, 151, 25);
+        tfCodigo.setBounds(largura - 650, altura - 190, 121, 25);
+        lAnodePub.setBounds(largura - 650, altura - 310, 151, 25);
+        cbAnodePub.setBounds(largura - 650, altura - 280, 121, 25);
+        bConcluir.setBounds(largura - 950, altura - 120, 420, 25);
+        bSair.setBounds(largura - 950, altura - 80, 205, 25);
+        bLimpar.setBounds(largura - 735, altura - 80, 205, 25);
         bDelet.setBounds(largura - 450, altura - 80, 421, 25);
         scrollPane.setBounds(largura - 450, altura - 400, 421, 300);
         
@@ -172,7 +169,6 @@ public class Main extends JFrame implements ActionListener{
         p.add(bSair);
         p.add(bDelet);
         p.add(bLimpar);
-        p.add(bSobre);
         p.add(scrollPane);
         // Usando método revalidate para conferir que os componentes estão em seus lugares
         p.revalidate();
@@ -203,7 +199,7 @@ public class Main extends JFrame implements ActionListener{
             System.exit(0);
         }
         // Se botão Sobre for apertado irá abrir outra frame com informações importantes
-        if(ae.getSource()==bSobre || ae.getSource() == miSobre){ 
+        if(ae.getSource() == miSobre){ 
             //new Sobre();
         }
         // Se botão Limpar for apertado irá chamar o método Erase() e limpará todos os campos
@@ -212,7 +208,7 @@ public class Main extends JFrame implements ActionListener{
         }
         // Se botão Concluir for apertado irá verificar se há campos vazios e irá adicionar informações na tabela
         if(ae.getSource()==bConcluir){
-            if(tfNomeDoLivro.getText().length() > 0 && tfAutor.getText().length() > 0 && cbEditora.getSelectedItem() != "" && cbAnodePub.getSelectedItem() != "" && (rbNovo.isSelected() == true || rbSemi.isSelected() == true)){
+            if(tfNomeDoLivro.getText().length() > 0 && tfAutor.getText().length() > 0 && cbEditora.getSelectedItem() != "" && cbAnodePub.getSelectedItem() != "" && (rbNovo.isSelected() == true || rbSemi.isSelected() == true) && tfCodigo.getText().length() > 0){
                 String cod = tfCodigo.getText();
                 String nome = tfNomeDoLivro.getText();
                 String autor = tfAutor.getText();
