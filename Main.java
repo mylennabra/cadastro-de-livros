@@ -200,7 +200,7 @@ public class Main extends JFrame implements ActionListener{
         }
         // Se botão Sobre for apertado irá abrir outra frame com informações importantes
         if(ae.getSource() == miSobre){ 
-            //new Sobre();
+            new Sobre();
         }
         // Se botão Limpar for apertado irá chamar o método Erase() e limpará todos os campos
         if (ae.getSource() == bLimpar || ae.getSource() == miLimpar) {
